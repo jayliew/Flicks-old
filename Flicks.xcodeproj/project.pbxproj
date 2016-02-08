@@ -82,16 +82,32 @@
 		E1E530C91C681F0900CE044C /* Flicks */ = {
 			isa = PBXGroup;
 			children = (
+				E1E530E11C6854D900CE044C /* Views */,
+				E1E530E01C6854B800CE044C /* View Controllers */,
 				E1E530CA1C681F0900CE044C /* AppDelegate.swift */,
-				E1E530CC1C681F0900CE044C /* MoviesViewController.swift */,
-				E1E530DE1C683C3F00CE044C /* MovieDetailsViewController.swift */,
 				E1E530CE1C681F0900CE044C /* Main.storyboard */,
-				E1E530DC1C682A1B00CE044C /* MovieViewCell.swift */,
 				E1E530D11C681F0900CE044C /* Assets.xcassets */,
 				E1E530D31C681F0900CE044C /* LaunchScreen.storyboard */,
 				E1E530D61C681F0900CE044C /* Info.plist */,
 			);
 			path = Flicks;
+			sourceTree = "<group>";
+		};
+		E1E530E01C6854B800CE044C /* View Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				E1E530CC1C681F0900CE044C /* MoviesViewController.swift */,
+				E1E530DE1C683C3F00CE044C /* MovieDetailsViewController.swift */,
+			);
+			name = "View Controllers";
+			sourceTree = "<group>";
+		};
+		E1E530E11C6854D900CE044C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				E1E530DC1C682A1B00CE044C /* MovieViewCell.swift */,
+			);
+			name = Views;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

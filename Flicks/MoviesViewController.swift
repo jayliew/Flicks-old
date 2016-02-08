@@ -54,8 +54,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     if let data = dataOrNil {
                         if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                             data, options:[]) as? NSDictionary {
-                                                                NSLog("response: \(responseDictionary)")
+//                                                                NSLog("response: \(responseDictionary)")
                                 self.movies = responseDictionary["results"] as? [NSDictionary]
+                                self.tableView.reloadData()
                                 //                                successCallback(responseDictionary)
                         }
                     }
@@ -68,10 +69,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let vc = segue.destinationViewController as! MovieDetailsViewController
-        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
+        let indexPath = tableView.indexPathForCell(sender as! MovieViewCell)
         
         // Question: Why does the URL have to be accessed like this? PITA
-        let movie = movies![indexPath!.item]
+        let movie = self.movies![indexPath!.row]
         let overview = movie["overview"] as! String
         let title = movie["title"] as! String
         let poster = movie["poster_path"] as! String
@@ -86,9 +87,12 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     // MARK: UITableViewDataSource
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCellWithIdentifier("com.jayliew.MovieViewCell", forIndexPath: indexPath) as! MovieViewCell
 
-        let movie = movies![indexPath.item]
+        let cell = tableView.dequeueReusableCellWithIdentifier("com.jayliew.MovieViewCell", forIndexPath: indexPath) as! MovieViewCell
+        
+        print("row: " + String(indexPath.row))
+        
+        let movie = self.movies![indexPath.row]
         let overview = movie["overview"] as! String
         let title = movie["title"] as! String
         let poster = movie["poster_path"] as! String
@@ -104,12 +108,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(movies)
-        if let movies = movies as [NSDictionary]? {
-            print("rows: " + String(movies.count))
+        print(self.movies)
+        
+        if let movies = self.movies as [NSDictionary]? {
+            print("num rows: " + String(movies.count))
             return movies.count
         }else{
-            print("rows: ZERO")
+            print("num rows: ZERO")
             return 0
         }
     }
