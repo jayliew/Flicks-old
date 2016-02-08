@@ -23,6 +23,10 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         tableView.dataSource = self
         tableView.delegate = self
         
+        let contentWidth = tableView.bounds.width
+        let contentHeight = tableView.bounds.height * 3
+        tableView.contentSize = CGSizeMake(contentWidth, contentHeight)
+        
         loadDataFromNetwork()
     }
 
@@ -79,8 +83,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let url = "https://image.tmdb.org/t/p/w342"
         let imageUrl = NSURL(string: url+poster)
         
-//        print("url " + String(poster) +  " " + String(imageUrl!) + " " + String(title))
-        
         vc.photoUrl = imageUrl!
         vc.movieTitle = title
         vc.movieOverview = overview
@@ -91,9 +93,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
         let cell = tableView.dequeueReusableCellWithIdentifier("com.jayliew.MovieViewCell", forIndexPath: indexPath) as! MovieViewCell
-        
-        print("row: " + String(indexPath.row))
-        
         let movie = self.movies![indexPath.row]
         let overview = movie["overview"] as! String
         let title = movie["title"] as! String
@@ -110,10 +109,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         if let movies = self.movies as [NSDictionary]? {
-            print("num rows: " + String(movies.count))
             return movies.count
         }else{
-            print("num rows: ZERO")
             return 0
         }
     }
