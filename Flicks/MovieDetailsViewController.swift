@@ -17,8 +17,17 @@ class MovieDetailsViewController: UIViewController {
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var overviewTextView: UITextView!
     
+    
+    var photoUrl = NSURL()
+    var movieTitle = String()
+    var movieOverview = String()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.photoView.setImageWithURL(self.photoUrl)
+        self.titleLabel.text = self.movieTitle
+        self.overviewTextView.text = self.movieOverview
 
         // Do any additional setup after loading the view.
     }

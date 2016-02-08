@@ -69,7 +69,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         let vc = segue.destinationViewController as! MovieDetailsViewController
-        let indexPath = tableView.indexPathForCell(sender as! MovieViewCell)
+        let indexPath = tableView.indexPathForCell(sender as! UITableViewCell)
         
         // Question: Why does the URL have to be accessed like this? PITA
         let movie = self.movies![indexPath!.row]
@@ -77,11 +77,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let title = movie["title"] as! String
         let poster = movie["poster_path"] as! String
         let url = "https://image.tmdb.org/t/p/w342"
-        let imageUrl = NSURL(string: url + poster)
+        let imageUrl = NSURL(string: url+poster)
         
-        vc.photoView.setImageWithURL(imageUrl!)
-        vc.titleLabel.text = title
-        vc.overviewTextView.text = overview
+//        print("url " + String(poster) +  " " + String(imageUrl!) + " " + String(title))
+        
+        vc.photoUrl = imageUrl!
+        vc.movieTitle = title
+        vc.movieOverview = overview
     }
     
     // MARK: UITableViewDataSource
@@ -102,14 +104,11 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.photoView.setImageWithURL(imageUrl!)
         cell.titleLabel.text = title
         cell.overviewTextView.text = overview
-        print(imageUrl)
         
         return cell
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        print(self.movies)
-        
         if let movies = self.movies as [NSDictionary]? {
             print("num rows: " + String(movies.count))
             return movies.count
