@@ -36,7 +36,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
     func refreshControlAction(refreshControl: UIRefreshControl){
-        // ... Create the NSURLRequest (myRequest) ...
         let clientId = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(clientId)")
         let request = NSURLRequest(URL: url!)
@@ -53,7 +52,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
-                if let requestError = errorOrNil {
+                if let _ = errorOrNil {
                     //                    errorCallback?(requestError)
                 } else {
                     // Hide HUD once the network request comes back (must be done on main UI thread)
@@ -63,7 +62,6 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     if let data = dataOrNil {
                         if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                             data, options:[]) as? NSDictionary {
-//                                                                NSLog("response: \(responseDictionary)")
                                 self.movies = responseDictionary["results"] as? [NSDictionary]
                                 self.tableView.reloadData()
                                 refreshControl.endRefreshing()
@@ -130,34 +128,3 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     }
 
 }
-
-/*
-class Post {
-    class func fetchPosts(successCallback: (NSDictionary) -> Void, errorCallback: ((NSError?) -> Void)?) {
-        let clientId = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
-        let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(clientId)")
-        let request = NSURLRequest(URL: url!)
-        let session = NSURLSession(
-            configuration: NSURLSessionConfiguration.defaultSessionConfiguration(),
-            delegate:nil,
-            delegateQueue:NSOperationQueue.mainQueue()
-        )
-        
-        let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
-            completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
-                if let requestError = errorOrNil {
-                    errorCallback?(requestError)
-                } else {
-                    if let data = dataOrNil {
-                        if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
-                            data, options:[]) as? NSDictionary {
-                                NSLog("response: \(responseDictionary)")
-                                successCallback(responseDictionary)
-                        }
-                    }
-                }
-        });
-        task.resume()
-    }
-}
-*/
