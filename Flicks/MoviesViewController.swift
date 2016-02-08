@@ -14,6 +14,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
     
     // MARK: Properties
     
+    @IBOutlet weak var errorView: UIView!
     @IBOutlet weak var tableView: UITableView!
     var movies: [NSDictionary]?
 
@@ -49,12 +50,13 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         let task : NSURLSessionDataTask = session.dataTaskWithRequest(request,
             completionHandler: { (dataOrNil, responseOrNil, errorOrNil) in
-                // Hide HUD once the network request comes back (must be done on main UI thread)
-                MBProgressHUD.hideHUDForView(self.view, animated: true)
-
                 if let requestError = errorOrNil {
                     //                    errorCallback?(requestError)
                 } else {
+                    // Hide HUD once the network request comes back (must be done on main UI thread)
+                    MBProgressHUD.hideHUDForView(self.view, animated: true)
+                    self.errorView.hidden = true
+                    
                     if let data = dataOrNil {
                         if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                             data, options:[]) as? NSDictionary {
@@ -102,7 +104,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         
         cell.photoView.setImageWithURL(imageUrl!)
         cell.titleLabel.text = title
+        cell.titleLabel.sizeToFit()
         cell.overviewTextView.text = overview
+        cell.overviewTextView.sizeToFit()
         
         return cell
     }
@@ -122,6 +126,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
 }
 
+/*
 class Post {
     class func fetchPosts(successCallback: (NSDictionary) -> Void, errorCallback: ((NSError?) -> Void)?) {
         let clientId = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
@@ -150,3 +155,4 @@ class Post {
         task.resume()
     }
 }
+*/

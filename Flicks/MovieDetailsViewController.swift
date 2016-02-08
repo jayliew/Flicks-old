@@ -28,6 +28,7 @@ class MovieDetailsViewController: UIViewController {
         self.photoView.setImageWithURL(self.photoUrl)
         self.titleLabel.text = self.movieTitle
         self.overviewTextView.text = self.movieOverview
+        self.overviewTextView.sizeToFit()
 
         // Do any additional setup after loading the view.
     }
