@@ -19,11 +19,9 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
         
         tableView.dataSource = self
         tableView.delegate = self
-        
         
         loadDataFromNetwork()
     }
@@ -56,7 +54,7 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
                     if let data = dataOrNil {
                         if let responseDictionary = try! NSJSONSerialization.JSONObjectWithData(
                             data, options:[]) as? NSDictionary {
-                                //                                NSLog("response: \(responseDictionary)")
+                                                                NSLog("response: \(responseDictionary)")
                                 self.movies = responseDictionary["results"] as? [NSDictionary]
                                 //                                successCallback(responseDictionary)
                         }
