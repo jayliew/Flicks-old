@@ -41,8 +41,6 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 
 1. Did not realize that in a view controller, one can get a reference to another view controller (via segue.) but it cannot be used to change subviews on the other view controller. E.g. setImageWithURL
 
-2. 
-
 ## License
 
     Copyright 2016 Jay Liew
