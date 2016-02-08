@@ -28,11 +28,14 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         let contentHeight = tableView.bounds.height * 3
         tableView.contentSize = CGSizeMake(contentWidth, contentHeight)
         
-        loadDataFromNetwork()
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: "refreshControlAction:", forControlEvents: UIControlEvents.ValueChanged)
+        tableView.insertSubview(refreshControl, atIndex: 0)
+        
+        refreshControlAction(refreshControl)
     }
 
-    func loadDataFromNetwork() {
-        
+    func refreshControlAction(refreshControl: UIRefreshControl){
         // ... Create the NSURLRequest (myRequest) ...
         let clientId = "a07e22bc18f5cb106bfe4cc1f83ad8ed"
         let url = NSURL(string:"https://api.themoviedb.org/3/movie/now_playing?api_key=\(clientId)")
@@ -63,6 +66,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
 //                                                                NSLog("response: \(responseDictionary)")
                                 self.movies = responseDictionary["results"] as? [NSDictionary]
                                 self.tableView.reloadData()
+                                refreshControl.endRefreshing()
+                                
                                 //                                successCallback(responseDictionary)
                         }
                     }
