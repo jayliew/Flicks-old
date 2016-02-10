@@ -15,7 +15,7 @@ class MovieViewCell: UITableViewCell {
     
     @IBOutlet weak var photoView: UIImageView!
     @IBOutlet weak var titleLabel: UILabel!
-    @IBOutlet weak var overviewTextView: UITextView!
+    @IBOutlet weak var overviewLabel: UILabel!    
     
     override func awakeFromNib() {
         super.awakeFromNib()

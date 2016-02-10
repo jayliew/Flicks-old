@@ -15,8 +15,7 @@ class MovieDetailsViewController: UIViewController {
     
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var photoView: UIImageView!
-    @IBOutlet weak var overviewTextView: UITextView!
-    
+    @IBOutlet weak var overviewLabel: UILabel!
     
     var photoUrl = NSURL()
     var movieTitle = String()
@@ -27,10 +26,15 @@ class MovieDetailsViewController: UIViewController {
         
         self.photoView.setImageWithURL(self.photoUrl)
         self.titleLabel.text = self.movieTitle
-        self.overviewTextView.text = self.movieOverview
-        self.overviewTextView.sizeToFit()
+        self.overviewLabel.text = self.movieOverview
+        self.overviewLabel.sizeToFit()
 
-        // Do any additional setup after loading the view.
+        self.navigationController?.navigationBar.translucent = true
+        self.navigationController?.view.backgroundColor = UIColor(red: 1.0, green: 0.0, blue: 0.0, alpha: 0.5)
+        
+//        let navBarAppearance = UINavigationBar.appearance()
+//        let colorImage = UIImage.imageFromColor(UIColor.morselPink(), frame: CGRectMake(0, 0, 340, 64))
+//        navBarAppearance.setBackgroundImage(colorImage, forBarMetrics: .Default)
     }
 
     override func didReceiveMemoryWarning() {

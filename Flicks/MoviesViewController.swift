@@ -108,8 +108,8 @@ class MoviesViewController: UIViewController, UITableViewDataSource, UITableView
         cell.photoView.setImageWithURL(imageUrl!)
         cell.titleLabel.text = title
         cell.titleLabel.sizeToFit()
-        cell.overviewTextView.text = overview
-        cell.overviewTextView.sizeToFit()
+        cell.overviewLabel.text = overview
+        cell.overviewLabel.sizeToFit()
         
         return cell
     }
